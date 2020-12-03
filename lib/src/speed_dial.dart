@@ -56,35 +56,35 @@ class SpeedDial extends StatefulWidget {
   /// The speed of the animation
   final int animationSpeed;
 
-  SpeedDial({
-    this.children = const [],
-    this.visible = true,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.elevation = 6.0,
-    this.overlayOpacity = 0.8,
-    this.overlayColor = Colors.white,
-    this.tooltip,
-    this.heroTag,
-    this.animatedIcon,
-    this.animatedIconTheme,
-    this.child,
-    this.marginBottom = 16,
-    this.marginRight = 16,
-    this.onOpen,
-    this.onClose,
-    this.closeManually = false,
-    this.shape = const CircleBorder(),
-    this.curve = Curves.linear,
-    this.onPress,
-    this.animationSpeed = 150
-  });
+  SpeedDial(
+      {this.children = const [],
+      this.visible = true,
+      this.backgroundColor,
+      this.foregroundColor,
+      this.elevation = 6.0,
+      this.overlayOpacity = 0.8,
+      this.overlayColor = Colors.white,
+      this.tooltip,
+      this.heroTag,
+      this.animatedIcon,
+      this.animatedIconTheme,
+      this.child,
+      this.marginBottom = 16,
+      this.marginRight = 16,
+      this.onOpen,
+      this.onClose,
+      this.closeManually = false,
+      this.shape = const CircleBorder(),
+      this.curve = Curves.linear,
+      this.onPress,
+      this.animationSpeed = 150});
 
   @override
   _SpeedDialState createState() => _SpeedDialState();
 }
 
-class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMixin {
+class _SpeedDialState extends State<SpeedDial>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   bool _open = false;
@@ -98,8 +98,9 @@ class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMix
     );
   }
 
-  Duration _calculateMainControllerDuration() =>
-      Duration(milliseconds: widget.animationSpeed + widget.children.length * (widget.animationSpeed / 5).round());
+  Duration _calculateMainControllerDuration() => Duration(
+      milliseconds: widget.animationSpeed +
+          widget.children.length * (widget.animationSpeed / 5).round());
 
   @override
   void dispose() {
@@ -142,7 +143,7 @@ class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMix
         .map((SpeedDialChild child) {
           int index = widget.children.indexOf(child);
 
-          var childAnimation = Tween(begin: 0.0, end: 62.0).animate(
+          var childAnimation = Tween(begin: 0.0, end: 58.0).animate(
             CurvedAnimation(
               parent: this._controller,
               curve: Interval(0, singleChildrenTween * (index + 1)),
@@ -166,7 +167,9 @@ class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMix
               if (!widget.closeManually) _toggleChildren();
             },
             shape: child.shape,
-            heroTag: widget.heroTag != null ? '${widget.heroTag}-child-$index' : null,
+            heroTag: widget.heroTag != null
+                ? '${widget.heroTag}-child-$index'
+                : null,
           );
         })
         .toList()
@@ -210,7 +213,8 @@ class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMix
       foregroundColor: widget.foregroundColor,
       elevation: widget.elevation,
       onLongPress: _toggleChildren,
-      callback: (_open || widget.onPress == null) ? _toggleChildren : widget.onPress,
+      callback:
+          (_open || widget.onPress == null) ? _toggleChildren : widget.onPress,
       child: child,
       heroTag: widget.heroTag,
       shape: widget.shape,
@@ -227,7 +231,7 @@ class _SpeedDialState extends State<SpeedDial> with SingleTickerProviderStateMix
           children: List.from(fabChildren)
             ..add(
               Container(
-                margin: EdgeInsets.only(top: 8.0, right: 2.0),
+                margin: EdgeInsets.only(right: 2.0),
                 child: animatedFloatingButton,
               ),
             ),
